@@ -1,0 +1,613 @@
+/* common */
+/* 
+-container
+-opacity hover
+-section header
+-section padding
+-hover effect 1 l to R
+-hover effect 2 top to bottom
+*/
+/* general css styles */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* (ومعناها لو خد padding او border مياثرش على width العنصر ياخدو من الموجود)css3 */
+}                                         
+body{
+    font-family: 'Varela Round', sans-serif;
+}
+.header{
+    
+    position: fixed; /* عشان اخلى ال header فوق body 
+    postion fixed/absloute بيخلى العنصر ينكمش 
+    يعنى من display block الى >>>>> display inline block كدا العنوان بقا تحت 
+    فبستخدم z-index
+    */
+   width: 100%;
+    z-index: 1;
+    background: #333;
+}
+.ltr-effect{
+    position: relative;
+    
+}
+.ltr-effect::after{
+    position: absolute;
+    content: "";
+    background: #333;
+    width: 0;
+     top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0; 
+    transition: width 0.5s;
+    z-index: -1;
+}
+.ltr-effect:hover:after{
+width: 100%;
+}
+.tp-effect{
+    position: relative;
+
+}
+.tp-effect::after{
+    position: absolute;
+    content: "";
+    background: #333;
+    width: 100%;
+    height: 0;
+     top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0; 
+    transition: height 0.5s;
+    z-index: -1;
+}
+.tp-effect:hover:after{
+height:100%;
+}
+.pd-y{
+    padding: 90px 0;
+}
+.section-header{
+    text-align: center;
+   margin-bottom: 50px;
+    
+}
+.section-header .section-title{
+    text-transform: capitalize;
+    font-size: 35px;
+    margin-bottom: 10px;
+    
+    
+    
+}
+.section-header .line {
+    display: block;
+    width:60px;
+    height: 5px;
+    background: #6195ff;
+    margin:0 auto 70px auto;
+
+}
+.container{
+    width: 80%;
+   
+    margin: auto;
+    /* عشان اوسطن عنصر block بستخدم margin:auto;
+    ولكن انا عاوز احط محتولا الصفحة جوا الكونتينر وهو كل عرضو 80 فلو فى عنصر المفروض يغطى
+    ف احناهنحطالكونتينر جوا ال header الصفحة مش هيظبط 
+    
+    */
+}
+.logo {
+    width: 40%;
+    float: left;
+}
+.header .logo img{
+    width: 20%;
+    margin-top: 10px;
+}
+.header .nav   {
+    width: 60%;
+    float: left;
+}
+.header .nav > li {
+    display: inline-block;
+    padding: 5px;
+}
+
+/* بعمل padding لل a بعد معملها dispaly block عشان اكبر مساحة ال a واقدر اضغط فاى مكان */
+.header .nav  > li > a{
+    text-decoration: none;
+    color: #fff;
+    padding: 15px 8px ;
+    display: block;
+    
+}
+ /*   عشان اعمل الخط ال تحت مختفى لكل العناصرnav bar*/
+    
+.header .nav > li a::after ,.header ul li a.active::after{
+    content: "";
+    display: block; /* لازم نحول عناصر after */
+    height: 2px;
+    background-color: #6195ff;
+    transition: width 0.5s; /*  widthعملنا تاخير لل after*/
+ }
+ .header  .nav > li a::after{
+    width: 0%;
+ }
+.header .nav > li >a.active::after{  /*  عشان اعمل الخط ال تحت ظاهر لاول عنصر لكن فى مشكلة نو بيزل معايا فهنخفيه دلوقتى nav bar*/
+   
+    /* width: 100%; */
+
+}
+.header .nav > li  >a:hover::after{ /* عشان انادى خاصية معمولها hover ---hover ::after*/
+    width: 100%;
+    
+} 
+
+.dropdown{
+    position: relative;
+}
+.dropdown-menu{
+    transition: opacity , visibility .5s;
+    position: absolute;
+    background: #6195ff;
+    width: 150px;
+    text-align: center;
+    left: -50%;
+    top: 70%;
+    opacity: 0; /* بدل مستخدم display none عشان اخفى العنصر 
+    بعمل opacity 0 visiblity hidden*/
+    visibility: hidden;
+}
+.dropdown-menu a {
+    text-decoration: none ;
+    color: #fff;
+    display: block;
+    padding: 10px;
+}
+.dropdown:hover .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+
+}
+/* .header-content{   لو عامل over flow hidden فى header and there is adrop down it will not show up 
+    overflow: hidden;
+}  */
+
+.clear{
+    clear: both;
+}
+
+
+/* عملت صورة خلفية واديتها cover 
+خليتها تاخد حجم الشاشة المعروضة vh 
+حطيتلها overlay استخدمت ال postion عشان اعملها  */
+.home {
+    background-image: url(../images/bachground/background1.jpg);
+    background-size: cover;/*عشان تملى الحيز*/
+    height: 100vh;
+    position: relative;
+    background-attachment: fixed; /*عشان اخلى الصورة ثابتة*/
+}
+.overlay{
+    position: absolute;
+    background-color: rgba(0,0,0,0.6);
+    width: 100%;
+    height: 100%;
+}
+/* لكن مقدرتش اتحكم ف النص لان ال overlay غطت على الشاشة كلها 
+فبخلى ال overlay على ال home-content */
+
+.home-content{
+    width: 65%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+
+}
+.home .title {
+    color: #fff;
+    font-size: 50px;
+    text-transform: uppercase;
+    
+}
+h1 , h2 {
+    font-family: 'Varela Round', sans-serif;
+}
+.home-p{
+    margin: 10px 0 ;
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 25px;
+}
+.btn{
+    min-width: 160px;
+    padding: 15px 0;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer; /*بيعدل شكل الماوس لما يجى ع الزار بيخليه ايد  */
+    font-size: 18;
+}
+.btn-start{
+    margin-right: 5px;
+    background-color: #fff;
+}
+.btn-learn{
+    margin-right: 5px;
+    background: #6195ff;
+    color: #fff;
+}
+button{
+    font-family: inherit; /* عشان اخلى اى زرار يورث الخط بتاع ال body*/
+}
+.hover-opacity{
+/*  عشان اخلى العنصر يعمل effect with delay بحطله transtion*/
+/*    يؤثر على كل الخصائص الموجودة لدى العنصر لذا نحدد الخاصية المراد عمل تاخير قبل الوقت*/
+    
+    transition: opacity 0.5s;
+}
+.hover-opacity:hover{   /* واحطه فكل ال btn*/
+    opacity: 0.7;
+
+}
+/* about */
+.about{
+
+}
+.about-content{
+    overflow: hidden; /* float عشان الاب يحس بالابناء لما يتعمل */
+}
+.about-item{
+    width: 30%;
+    float: left;
+    text-align: center;
+    border: 1px solid #efe5e5;
+    padding: 50px 20px;
+}
+.about-item:hover .about-item-title{ /*عشان اخلى لما يحصل effect الخط يبقاابيض*/
+    color: #fff;
+}
+.about-item.mg{
+    margin: 0 5% 0 5%;
+}
+.about-item .icon{
+    color: #6195ff;
+    margin-bottom: 10px;
+}
+.about-item-title{
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    transition: color 0.5s;
+}
+.about-item-desc{
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #999;
+}
+.about-item-link{
+    text-decoration: none;
+    color: #6195ff;
+    text-transform: capitalize;
+}
+/* our-team */
+.team{
+    position: relative;
+}
+.team-content{
+overflow: hidden;
+}
+.team-item{
+    width:30%;
+    float: left;
+    background: #e8e8e8;
+    padding: 40px 20px;
+    text-align: center;
+}
+.team-item.mg{
+    margin: 0 5%;
+}
+.team-item .team-image{
+    width: 90%;
+    margin: auto;
+    position: relative;
+}
+.team-overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background:rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s;
+}
+.team-overlay a{
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: #7ba7ff;
+    color: #fff;
+    margin-left: auto; /*عشان انقل اعناصر كلها مرة واحدة ناحية الشمال*/
+}
+.team-overlay a i{ /*عشان اوسطن الايقونات فوسط مكانها*/
+    line-height: 40px;
+}
+.team-item .team-image img{
+    width: 100%;
+    margin: auto;
+}
+.team-item .team-info-title{
+    color: #222;
+    margin: 10px 0;
+    text-transform: capitalize;
+    transition: color 0.5s;
+
+}
+.team-item .team-info-txt{
+    color: #999;
+    text-transform: capitalize;
+    font-size: 14;
+}
+.team-item:hover .team-overlay{
+    visibility: visible;
+    opacity: 1;
+}
+.team-item.tp-effect{
+    z-index: 1;
+}
+.team-item:hover .team-info-title{
+    color: #fff;
+}
+.team-item:hover .team-info-txt{
+    color: #6195ff;
+}
+
+
+/* portfolio */
+.portfolio{
+    background: #f9f9f9;
+}
+.portfolio-content{
+    overflow: hidden;
+}
+.portfolio-item{
+    width: 30%;
+    float: left;
+    margin-bottom: 30px;
+    position: relative;
+    padding: 20px;
+}
+.portfolio-item .layer-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s;
+}
+.portfolio-item:hover .layer-content{
+    opacity: 1;
+    visibility: visible;
+}
+.layer-info{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    width: 60%;
+}
+.layer-content .category{ /*لاحظ انو span فلازم نعمله block*/
+    color: #6195ff;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom:10px;
+    font-size: 20px;
+}
+.layer-content-title{
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px; 
+
+}/* عشان اظبط الايقونات بعمل inline block لل a 
+بعدين بديها w/h
+بعدين بدى ال i line hight مساوى ليهم*/
+
+.layer-content a{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    color: #6195ff;
+    
+}
+.layer-content a i{
+    line-height: 40px;
+}
+
+
+.portfolio-item img{
+    width: 100%;
+}
+.portfolio-item.mg{
+    margin: 0 5%;
+}
+
+.statistics{
+    position: relative;
+    background-image: url(../images/bachground/background2.jpg);
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.statistics-items{
+    overflow: hidden;
+    
+}
+.static-item{
+    width: 25%;
+    float: left;
+    text-align: center;
+}
+.static-item .icon{
+    color: #6195ff;
+    margin-bottom: 15px;
+}
+.static-item-title{
+    font-weight: bold;
+    font-size: 25px;
+    color: #fff;
+}
+.static-item-text{
+    color: #fff;
+}
+
+/* pricing table */
+.pricing{
+
+}
+.pricing-plan{
+    overflow: hidden;
+}
+.pricing-item{
+    width: 30%;
+    float: left;
+    padding: 20px 15px;
+    border: 1px solid #a8a8a8;
+    text-align: center;
+    
+
+}
+.pricing-item.mg{
+    margin: 0 5%;
+}
+.pricing-item-text{
+    text-transform: uppercase;
+    font-size: 20px;
+    
+    color: #999;
+}
+
+.pricing-item-permonth{
+    width: 130px;
+    height: 130px;
+    padding: 25px 0;
+    margin:20px auto;
+    border: 3px solid #6195ff;
+    border-radius: 50%;
+}
+.pricing-item-permonth .dollar
+{
+    font-size: 40px;
+}
+.pricing-item-permonth .month{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size:15px ;
+}
+.pricing-list {
+    list-style: none;;
+}
+.pricing-list li{
+    color: #999;
+    line-height: 1.8;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}
+.pricing-item-purchaes{
+    background: none;
+    border:2px solid #7ba7ff;
+    display: block;
+    padding: 10px;
+    margin:15px auto 0 auto;
+    color: #7ba7ff;
+    
+}
+.pricing-item:hover .pricing-item-permonth{
+    color: #fff;
+}
+.testmonial{
+    position: relative;
+    background-image: url(../images/bachground/background3.jpg);
+    background-size: cover;
+    background-attachment:fixed ;
+    width: 100%;
+    height: 400px;
+}
+.tesmonial-content{
+    overflow: hidden;
+    padding: 120px 0;
+}
+.test-item{
+    width: 50%;
+    float: left;
+    color: #fff;
+}
+.test-item .test-toplayer{
+    padding: 10px 2px 40px 100px;
+    position: relative;
+
+}
+.test-item .test-toplayer img{
+    position: absolute;
+    left:10px;
+    top: 10px;
+    border-radius: 50%;
+}
+.test-item .test-toplayer .test-toplayer-name{
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+.test-item .test-toplayer .test-toplayer-job{
+    color: #6195ff;
+}
+/* outroo */
+.outroo{
+    width: 100%;
+    height: 400px;
+    background: #222;
+    position: relative;
+}
+.out-content{
+   text-align: center;
+   position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+}
+.out-image img{
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px; 
+    
+}
+.icon-out{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #6195ff;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 10px 10px;
+}
+.icon-out:hover{
+    background: #999;
+}
+.out-span{
+    display: block;
+    margin-top: 10px;
+    color: #a8a8a8;
+    text-transform: uppercase;
+}
